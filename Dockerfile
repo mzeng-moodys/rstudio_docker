@@ -35,6 +35,8 @@ RUN apt-get update && \
 		odbc-postgresql && \
     rm -rf /var/lib/apt/lists/*
 
+RUN apt-get install -y  gnupg dirmngr
+
 ## Add LaTeX, rticles and bookdown support
 ## Add binaries for more CRAN packages, deb-src repositories in case we need `apt-get build-dep`
 RUN echo 'deb http://debian-r.debian.net/debian-r/ unstable main' >> /etc/apt/sources.list \
