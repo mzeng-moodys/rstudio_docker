@@ -104,7 +104,7 @@ RUN R -e "remove.packages('scales')"
 RUN R -e "devtools::install_github('cwickham/munsell')"
 RUN R -e "devtools::install_github('r-lib/scales')"
 RUN R -e "devtools::install_github('moodysanalytics/RCfun', auth_token = '28c0419bf4c6e7f621c963b2c2f1d33d7bfcdcac')"
-RUN devtools::install_github('moodysanalytics/ers-rsg-so-MAQRG', auth_token = "d3cf3736eb26ef9493aa99fab73d0f43d1ca9700")
+RUN R -e "devtools::install_github('moodysanalytics/ers-rsg-so-MAQRG', auth_token = 'd3cf3736eb26ef9493aa99fab73d0f43d1ca9700')"
 
 RUN python3 -m venv ${PYTHON_VENV_PATH}
 
