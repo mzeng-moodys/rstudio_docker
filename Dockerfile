@@ -11,6 +11,7 @@ RUN apt-get update -qq && apt-get -y --no-install-recommends install \
   unixodbc-dev \
   && install2.r --error \
     --deps TRUE \
+    --repos 'http://cran.rstudio.com/'\
     tidyverse \
     dplyr \
     ggplot2 \
@@ -39,11 +40,11 @@ RUN apt-get update && apt-get install -y  gnupg dirmngr
 
 ## Add LaTeX, rticles and bookdown support
 ## Add binaries for more CRAN packages, deb-src repositories in case we need `apt-get build-dep`
-RUN echo 'deb http://debian-r.debian.net/debian-r/ unstable main' >> /etc/apt/sources.list \
-  && gpg --keyserver keyserver.ubuntu.com --recv-keys AE05705B842492A68F75D64E01BF7284B26DD379 \
-  && gpg --export AE05705B842492A68F75D64E01BF7284B26DD379  | apt-key add - \
-  && echo 'deb-src http://debian-r.debian.net/debian-r/ unstable main' >> /etc/apt/sources.list \
-  && echo 'deb-src http://http.debian.net/debian testing main' >> /etc/apt/sources.list
+## RUN echo 'deb http://debian-r.debian.net/debian-r/ unstable main' >> /etc/apt/sources.list \
+##   && gpg --keyserver keyserver.ubuntu.com --recv-keys AE05705B842492A68F75D64E01BF7284B26DD379 \
+##   && gpg --export AE05705B842492A68F75D64E01BF7284B26DD379  | apt-key add - \
+##   && echo 'deb-src http://debian-r.debian.net/debian-r/ unstable main' >> /etc/apt/sources.list \
+##   && echo 'deb-src http://http.debian.net/debian testing main' >> /etc/apt/sources.list
 
 ## LaTeX:
 ## This installs inconsolata fonts used in R vignettes/manuals manually since texlive-fonts-extra is HUGE
@@ -103,6 +104,7 @@ RUN R -e "remove.packages('scales')"
 RUN R -e "devtools::install_github('cwickham/munsell')"
 RUN R -e "devtools::install_github('r-lib/scales')"
 RUN R -e "devtools::install_github('moodysanalytics/RCfun', auth_token = '28c0419bf4c6e7f621c963b2c2f1d33d7bfcdcac')"
+RUN devtools::install_github('moodysanalytics/ers-rsg-so-MAQRG', auth_token = "d3cf3736eb26ef9493aa99fab73d0f43d1ca9700")
 
 RUN python3 -m venv ${PYTHON_VENV_PATH}
 
